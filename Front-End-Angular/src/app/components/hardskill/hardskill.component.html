@@ -1,0 +1,267 @@
+<!-- Skills -->
+<div class="card mat-card mx-auto" main-container id="hardskill">
+    <div class="title-button" id="hard">
+      <h2 class="content-title">HardSkills</h2>
+        <i class="fa-solid fa-plus" 
+        (click)="onOpenModalHard('add')" data-bs-toggle="modal" 
+        data-bs-target="#addHardskillModal" *ngIf="showAdminBoard" ></i>
+    </div><br>   
+    <div class="row">
+      <ul class="items-list">
+                  <li *ngFor="let hardskill of hardskills">
+                      <div class="data-container">
+                          <circle-progress
+                          [percent]="hardskill.porcentajeHardskill"
+                          [radius]="55"
+                          [imageHeight]="55"
+                          [imageWidth]="55"
+                          [showUnits]="true"
+                          [subtitle]="hardskill.nombreHardskill"
+                          [imageSrc]="hardskill.fotoHardskill"
+                          [showImage]="true"
+                          [showSubtitle]="true"
+                          [outerStrokeWidth]="16"
+                          [innerStrokeWidth]="8"
+                          [outerStrokeColor]="'#F6B900'"
+                          [innerStrokeColor]="'#F9CB9C  '"
+                          [animation]="true"
+                          [animationDuration]="300"
+                        ></circle-progress>
+                          <div class="d-block">
+                            {{hardskill.nombreHardskill}}
+                          <b>{{hardskill.porcentajeHardskill}} %    </b>
+                              <a 
+                              style="padding-right: 5px;" 
+                              (click)="onOpenModalHard('edit',hardskill)">
+                              <i class="fa-solid fa-edit" 
+                              data-toggle="modal"
+                              data-target="#editHardskillModal" *ngIf="showAdminBoard"></i></a>
+                              <a 
+                              style="padding-right: 5px;" 
+                              (click)="onOpenModalHard('delete',hardskill)">
+                              <i class="fa-solid fa-trash" 
+                              data-toggle="modal"
+                              data-target="#deleteHardskillModal" *ngIf="showAdminBoard"></i></a>
+                          </div>
+                      </div>
+                
+                  </li>
+      </ul>
+    </div>       
+  
+  
+  <!--Modal ADD HARDSKILLS-->
+  <div 
+  class="modal fade" 
+  id="addHardskillModal" 
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addHardskillModalLabel" 
+  aria-hidden="true"
+  >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addHardskillModalLabel">Añadir habilidad Hard</h5>
+        <button 
+        type="button" 
+        class="close"
+        data-dismiss="modal" 
+        aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addForm="ngForm" (ngSubmit)="onAddHardskill(addForm)">
+          <div class="form-group">
+            <label for="nombreHardskill">
+              Nombre de la habilidad</label>
+            <input 
+            class="form-control" 
+            ngModel
+            type="text" 
+            name="nombreHardskill"
+            id="nombreHardskill"
+            placeholder="Escriba el nombre de la habilidad"
+            aria-label="Escriba el nombre de la habilidad"
+            required>
+          </div>
+          <div  class="form-group">
+            <label for="porcentajeHardskill"> Nivel que piensa que tiene en numeros</label>
+            <input 
+            class="form-control" 
+            name="porcentajeHardskill"
+            id="porcentajeHardskill"
+            ngModel
+            placeholder="Ejemplo: 30,40,50..."
+            aria-label="Ejemplo: 30,40,50..."
+            required>
+          </div>
+          <div class="form-group">
+            <label for="fotoHardskill">Ingrese la url de una imagen para la Skill</label>
+            <input 
+            class="form-control" 
+            name="fotoHardskill"
+            id="fotoHardskill"
+            ngModel
+            type="text" 
+            placeholder="Ingrese la url de una imagen para la Skill"
+            aria-label="Ingrese la url de una imagen para la Skill">
+          </div>
+          <br>
+          <div class="modal-footer">
+              <button 
+              type="button" 
+              id="add-hardskill-form" 
+              class="btn btn-secondary"
+              data-dismiss="modal">
+                  Cancelar
+              </button>
+              <button 
+              [disabled]="addForm.invalid"
+              type="submit"
+              class="btn btn-primary">
+                  Guardar cambios
+              </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <!----MODAL EDIT HARDSKILL -->
+  
+  <div 
+  class="modal fade" 
+  id="editHardskillModal" 
+  role="dialog"
+  tabindex="-1"
+  aria-labelledby="hardskillEditModalLabel" 
+  aria-hidden="true"
+  >
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="updateHardskillModalLabel">Modificar Hard skill {{editHardskill?.nombreHardskill}}
+                  </h5>
+                  <button 
+                  type="button" 
+                  class="close" 
+                  data-dismiss="modal" 
+                  aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+              <div class="modal-body">
+                  <form #editForm="ngForm"> 
+                      <div class="form-group">
+                          <label for="nombreHardskill" class="form-label">Nombre de la Skill</label>
+                          <input 
+                          class="form-control" 
+                          type="text" 
+                          ngModel="{{editHardskill?.nombreHardskill}}" 
+                          name="nombreHardskill"
+                          id="nombreHardskill"
+                          />
+                      </div>
+                      <input
+                      type="hidden"
+                      ngModel="{{editHardskill?.idHardskill}}"
+                      name="idHardskill"
+                      class="form-control"
+                      id="idHardskill"
+                      placeholder=""
+                      />
+                      <div class="form-group">
+                          <label for="porcentajeHardskill" 
+                          class="form-label">Nivel que piensa que tiene</label>
+                          <input 
+                          class="form-control" 
+                          type="text" 
+                          ngModel="{{editHardskill?.porcentajeHardskill}}"
+                          name="porcentajeHardskill" 
+                          id="porcentajeHardskill">
+                      </div>
+                      <div class="form-group">
+                          <label for="fotoHardskill" 
+                          class="form-label">Ingrese la url de una imagen para la Skill</label>
+                          <input 
+                          class="form-control" 
+                          type="text" 
+                          ngModel="{{editHardskill?.fotoHardskill}}"
+                          name="fotoHardskill" 
+                          id="fotoHardskill">
+                      </div>
+                      <br>
+                      <div class="modal-footer">
+                          <button 
+                          type="button" 
+                          class="btn btn-secondary"
+                          data-dismiss="modal">
+                              Cancelar</button>
+                          <button 
+                          (click)="onUpdateHardskill(editForm.value)" 
+                          data-dismiss="modal"
+                          class="btn btn-primary">
+                              Guardar cambios
+                          </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  
+  <!-- Modal DELETE -->
+  <div 
+  class="modal fade" 
+  data-bs-target="#deleteModalLabel"
+  data-bs-toggle="modal"
+  id="deleteHardskillModal" 
+  tabindex="-1" 
+  role="dialog"
+  aria-labelledby="deleteModalLabel" 
+  aria-hidden="true"
+  >
+    <div class="modal-dialog" role="dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Eliminar elemento</h5>
+          <button 
+          type="button" 
+          class="close" 
+          data-dismiss="modal" 
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+         <p>¿Seguro que querés eliminar este elemento? 
+           {{deleteHardskill?.nombreHardskill}}?</p> 
+        </div>
+        <div class="modal-footer">
+          <button 
+          type="button" 
+          class="btn btn-secondary" 
+          data-dismiss="modal">
+              Cancelar
+          </button>
+          <button 
+          (click)="onDeleteHardskill(deleteHardskill!.idHardskill)" 
+          class="btn btn-danger"
+          data-dismiss="modal">
+          Eliminar </button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- Advertencia-->
+  <div *ngIf="hardskills?.length == 0 " class="col-lg-12 col-md-12 col-xl-12">
+      <div class="alert alert-info" role="alert">
+          <h4 class="alert-heading">No hay skills!</h4>
+          <p>No hay skills!</p>
+      </div>
+  </div>
+  </div>

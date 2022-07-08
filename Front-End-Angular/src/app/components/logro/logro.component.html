@@ -1,0 +1,232 @@
+<!--logros-->
+<section class="card mat-card logro mx-auto" main-container id="logro">
+    <div class="title-button">
+        <h2 class="content-title">Certificaciones y logros</h2>
+        <i class="fa-solid fa-plus" data-toggle="modal" 
+        (click)="onOpenModal('add')" data-target="#addLogroModal" *ngIf="showAdminBoard"></i>
+    </div>
+    <div class="content">
+    <li *ngFor="let logro of logros">
+          <mat-card class="example-card" id="logros">
+            <div style="padding: 3px;" class="title-button" >
+                <h5 class="card-title">{{logro.nombreLogro}}</h5><br>
+                <img src="{{logro.imgLogro}}" alt="Logro Image" id="imglogro"></div>
+                <div class="d-block" *ngIf="showAdminBoard">
+                        <span style="padding-right: 5px;" 
+                        (click)="onOpenModal('edit',logro)"
+                        data-toggle="tooltip"
+                        data-original-title="Edit">
+                        <i class="fa-solid fa-edit" data-bs-toggle="modal"
+                                data-bs-target="#editLogroModal"></i>
+                        </span>
+                        <span 
+                        style="padding-right: 5px;" 
+                        (click)="onOpenModal('delete',logro)"
+                        data-toggle="tooltip"
+                        data-original-title="Delete">
+                        <i class="fa-solid fa-trash" data-toggle="modal"
+                        data-target="#deleteLogroModal"></i></span>
+                    </div>
+                   </mat-card>
+                </li>
+            </div>
+   
+
+
+<!--  MODAL ADD-->
+
+<div class="modal fade" 
+id="addLogroModal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="addLogroModalLabel" 
+aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addLogroModalLabel">Añadir certificacion o logro</h5>
+                <button 
+                type="button" 
+                class="close" 
+                data-dismiss="modal" 
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm" (ngSubmit)="onAddLogro(addForm)">
+                    <div class="form-group">
+                        <label for="nombreLogro">
+                           Ingrese titulo de certificado</label>
+                           <input 
+                           class="form-control" 
+                           ngModel
+                           id="nombreLogro"
+                           name="nombreLogro"
+                           type="text" 
+                           placeholder="Ingrese titulo de certificado"
+                           aria-label="Ingrese titulo de certificado"
+                           required />
+                       </div>
+                    <div class="form-group">
+                     <label for="logro">
+                        Ingrese url</label>
+                        <input 
+                        class="form-control" 
+                        ngModel
+                        id="imgLogro"
+                        name="imgLogro"
+                        type="text" 
+                        placeholder="Ingrese url del certificado"
+                        aria-label="Ingrese url del certificado"
+                        required />
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <button 
+                        type="button" 
+                        id="add-logro-form" 
+                        class="btn btn-secondary"
+                        data-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <button 
+                        [disabled]="addForm.invalid"
+                        type="submit"
+                        class="btn btn-primary">
+                            Guardar cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----MODAL EDIT -->
+
+<div 
+class="modal fade" 
+id="editLogroModal" 
+tabindex="-1"
+role="dialog"
+aria-labelledby="logroEditModalLabel" 
+aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateLogroModalLabel">
+                    Modificar logro {{editLogro?.nombreLogro}}
+                </h5>
+                <button type="button" 
+                class="close" 
+                data-dismiss="modal" 
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #editForm="ngForm">
+                    <div class="form-group">
+                        <label for="logro"
+                        class="form-label">
+                        Logro</label>
+                        <input 
+                        class="form-control" 
+                        type="text" 
+                        ngModel="{{editLogro?.nombreLogro}}" 
+                        name="nombreLogro"
+                        id="nombreLogro">
+                    </div>
+                    <input
+                    type="hidden"
+                    ngModel="{{editLogro?.idLogro}}"
+                    name="idLogro"
+                    class="form-control"
+                    id="idLogro"
+                    placeholder=""
+                    />
+                    <div class="form-group">
+                        <label for="imgLogro"
+                        class="form-label">
+                        Url del Logro</label>
+                        <input 
+                        class="form-control" 
+                        type="text" 
+                        ngModel="{{editLogro?.imgLogro}}" 
+                        name="imgLogro"
+                        id="imgLogro">
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <button 
+                        type="button" 
+                        class="btn btn-secondary"
+                        data-dismiss="modal">
+                            Cancelar</button>
+                        <button 
+                        (click)="onUpdateLogro(editForm.value)" 
+                        data-dismiss="modal"
+                        class="btn btn-primary">
+                            Guardar cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--- MODAL DELETE -->
+
+<div 
+class="modal fade" 
+data-bs-target="#deleteModalLabel"
+data-bs-toggle="modal"
+id="deleteLogroModal" 
+tabindex="-1"  
+role="dialog"
+aria-labelledby="deleteModalLabel" 
+aria-hidden="true"
+>
+    <div class="modal-dialog" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Eliminar elemento</h5>
+                <button 
+                type="button" 
+                class="close" 
+                data-dismiss="modal" 
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+            <div class="modal-body">
+                <p>¿Seguro que querés eliminar este elemento?
+                {{deleteLogro?.nombreLogro}}?</p>
+            </div>
+            <div class="modal-footer">
+                <button 
+                type="button" 
+                class="btn btn-secondary" 
+                data-dismiss="modal">
+                    Cancelar</button>
+                <button 
+                (click)="onDeleteLogro(deleteLogro!.idLogro)" 
+                class="btn btn-danger"
+                data-dismiss="modal">
+                Eliminar</button>
+            </div>
+        </div>
+    </div>
+ </div>
+    <!-- Advertencia-->
+    <div *ngIf="logros?.length == 0 " class="col-lg-12 col-md-12 col-xl-12">
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">No hay logros!</h4>
+            <p>No hay logros!</p>
+        </div>
+    </div>
+</section>

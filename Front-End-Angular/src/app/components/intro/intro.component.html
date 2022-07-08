@@ -1,0 +1,105 @@
+<section class="card mat-card mx-auto" main-container id="intro">
+  <div class="title-button">
+
+  </div>
+  <div class="title-button">
+  </div>
+  <br>
+  <div id="main-container">
+      <ul class="items-list">
+          <li *ngFor="let intro of intros">
+                <h2 class="content-title">{{intro.tituloIntro}}</h2>
+              <h3>{{intro.intro}}</h3> 
+                 <div class="data-container">
+                 <div class="title-button" id="intros">
+               
+                      <div class="d-block" *ngIf="showAdminBoard">
+                      <a style="padding-right: 5px;" 
+                      (click)="onOpenModal('edit',intro)"
+                      data-toggle="tooltip"
+                      data-original-title="Edit">
+                      <i class="fa-solid fa-edit" 
+                      data-toggle="modal"
+                      data-target="#editIntroModal"></i>
+                      </a>
+                    </div>
+                   </div> 
+              </div>
+          </li>
+      </ul>
+  </div>
+
+
+<!----MODAL EDIT -->
+
+
+  <div 
+  class="modal fade" 
+  id="editIntroModal" 
+  tabindex="-1" 
+  aria-labelledby="introEditModalLabel" 
+  aria-hidden="true"
+  role="dialog" 
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateIntroModalLabel">
+            Editar informacion {{editIntro?.tituloIntro}}</h5>
+        <button 
+          type="button"
+          class="close" 
+          data-dismiss="modal" 
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       <div class="modal-body">
+          <form #editForm="ngForm">
+                <div class="form-group">
+                       <label for="tituloIntro"class="form-label">Encabezado:</label>
+                       <input
+                       class="form-control"
+                       type="text"
+                       ngModel="{{editIntro?.tituloIntro}}" 
+                       name="tituloIntro"
+                       id="tituloIntro"
+                       />
+                      <input
+                  type="hidden"
+                  ngModel="{{editIntro?.idIntro}}"
+                  name="idIntro"
+                  class="form-control"
+                  id="idIntro"
+                  placeholder=""
+                  />
+                  <textarea
+                  class="form-control"
+                  type="text"
+                  ngModel="{{editIntro?.intro}}" 
+                  name="intro"
+                  id="intro"
+                  rows="8">
+                 </textarea>
+                  </div>
+                <br>
+              <div class="modal-footer">
+                  <button 
+                  type="button" 
+                  class="btn btn-secondary"
+                  data-dismiss="modal">
+                      Cancelar</button>
+                  <button 
+                  (click)="onUpdateIntro(editForm.value)" 
+                  data-dismiss="modal"
+                  class="btn btn-primary">
+                      Guardar cambios
+                  </button>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+</section>

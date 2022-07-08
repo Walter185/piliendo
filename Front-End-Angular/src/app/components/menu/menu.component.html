@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4" id="barra">
+    <div class="container-fluid" id="barra">
+      <div id="links">
+        <a href="https://www.argentina.gob.ar/produccion/transformacion-digital-y-economia-del-conocimiento/argentina-programa"
+          target="blanck" rel="noopener">
+          <img src="https://liendo.s3.sa-east-1.amazonaws.com/APLogo.png" alt="Argentina Programa" id="logoAP"></a>
+          <img src="https://liendo.s3.sa-east-1.amazonaws.com/LogosInti.png" alt="" id="logointi">
+        <a href="intro" id="link1" class="nav-link" style="font-size: 120%;" style="color: rgb(171, 167, 167);"*ngIf="isLoggedIn">Acerca</a>
+        <a href="experience" id="link2"class="nav-link"style="font-size: 120%;" style="color: rgb(171, 167, 167);"*ngIf="isLoggedIn">Experiencia</a>
+        <a href="education" id="link3"class="nav-link"style="font-size: 120%;" style="color: rgb(171, 167, 167);"*ngIf="isLoggedIn">Educacion</a>
+        <a href="Skills" id="link4"class="nav-link"style="font-size: 120%;" style="color: rgb(171, 167, 167);"*ngIf="isLoggedIn">Softskill</a>
+        <a href="hard" id="link4"class="nav-link"style="font-size: 120%;" style="color: rgb(171, 167, 167);"*ngIf="isLoggedIn">Hardskill</a>
+        <a href="logro" id="link4"class="nav-link"style="font-size: 120%;" style="color: rgb(171, 167, 167);"*ngIf="isLoggedIn">Logros</a>
+        <a href="proyectos" id="link6"class="nav-link"style="font-size: 120%;" style="color: rgb(171, 167, 167);"*ngIf="isLoggedIn">Proyectos</a>
+          </div>
+      <div class="d-flex">
+        <div class="redes" id="redes">  
+            <a href="https://www.instagram.com/walterliendook/" target="_blank" rel="noopener" style="margin-left: 10px;">
+            <img src="https://liendo.s3.sa-east-1.amazonaws.com/instagram.png" title="Instagram"></a>
+          <a href="https://www.facebook.com/walterliendook/" target="_blank" rel="noopener" style="margin-left: 10px;">
+            <img src="https://liendo.s3.sa-east-1.amazonaws.com/facebook.png" title="Facebook"></a>
+          <a href="https://www.linkedin.com/in/walter-liendo-7204b854" target="_blank" rel="noopener" style="margin-left: 10px;">
+            <img src="https://liendo.s3.sa-east-1.amazonaws.com/linkedin.png" title="Linkedin"></a>
+          <a href="https://github.com/Walter185" target="_blank" rel="noopener" style="margin-left: 10px;">
+            <img src="https://liendo.s3.sa-east-1.amazonaws.com/logogithub.png" title="Github"></a>
+          <a href="https://twitter.com/walterliendook" target="_blank" rel="noopener" style="margin-left: 10px;">
+            <img src="https://liendo.s3.sa-east-1.amazonaws.com/twitter.png" title="Twitter"></a>
+       
+        </div>
+      <ul class="navbar-nav mr-auto" routerLinkActive="active">
+              <li class="nav-item" *ngIf="ShowUserBoard">
+      <a href="/user" class="nav-link" routerLink="user" style="color: rgb(171, 167, 167);">Inicio</a>
+      </li>
+      <li class="nav-item" *ngIf="showAdminBoard">
+        <a href="/admin" class="nav-link" routerLink="admin">Admin</a>
+      </li>
+      </ul>
+       <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+        <li class="nav-item">
+          <a href="/" class="nav-link" routerLink="/" style="color: rgb(171, 167, 167);">  Home   /</a>
+        </li>
+      <li class="nav-item">
+        <a href="/register" class="nav-link" routerLink="register" style="color: rgb(171, 167, 167)">   Registrarse     /</a>
+        </li>
+      <li class="nav-item">
+        <a href="/login" class="nav-link" routerLink="login" style="color: rgb(171, 167, 167);">Login  /</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <li class="nav-item">
+        <a href="/user" class="nav-link" routerLink="user" style="color: rgb(171, 167, 167);">Inicio  /</a>
+        </li>
+      <li class="nav-item">
+        <a href="/profile" class="nav-link" routerLink="profile"style="color: rgb(171, 167, 167);">{{ username }}  /</a>
+      </li>
+      <li class="nav-item">
+        <a href class="nav-link" (click)="logout()" style="color: rgb(171, 167, 167);">LogOut</a>
+      </li>
+    </ul></div></div>
+      </nav>
